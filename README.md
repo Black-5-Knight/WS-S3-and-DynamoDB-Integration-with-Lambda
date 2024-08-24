@@ -31,31 +31,38 @@ This project demonstrates how to use AWS services (S3, DynamoDB, and Lambda) to 
 - **Function Code**: Use the following template and modify it according to your requirements:
 
 ```python
+import json
 import boto3
+import logging
 
-s3 = boto3.client('s3')
-dynamodb = boto3.resource('dynamodb')
+# Initialize clients
+s3_client = boto3.client('s3')
+dynamodb_client = boto3.resource('dynamodb')
+table = dynamodb_client.Table('FileRecords')
+
+
 
 def lambda_handler(event, context):
-    # Get the file details from the event
-    source_bucket = event['Records'][0]['s3']['bucket']['name']
-    file_key = event['Records'][0]['s3']['object']['key']
-    
-    # Define destination bucket
-    destination_bucket = 'YourDestinationBucketName'
-    
-    # Copy file from S3 Bucket 1 to S3 Bucket 2
-    copy_source = {'Bucket': source_bucket, 'Key': file_key}
-    s3.copy_object(CopySource=copy_source, Bucket=destination_bucket, Key=file_key)
-    
-    # Add file name to DynamoDB
-    table = dynamodb.Table('YourDynamoDBTableName')
-    table.put_item(Item={'fileName': file_key})
-    
-    return {
-        'statusCode': 200,
-        'body': f"File '{file_key}' successfully moved to '{destination_bucket}' and recorded in DynamoDB."
-    }
+    try:
+        # Get the bucket name and file name from the event
+        source_bucket = event['Records'][0]['s3']['bucket']['name']
+        file_name = event['Records'][0]['s3']['object']['key']
+
+        # Copy the file to the destination bucket
+        destination_bucket = 'task-destination-bucket'
+        copy_source = {'Bucket': source_bucket, 'Key': file_name}
+        s3_client.copy_object(CopySource=copy_source, Bucket=destination_bucket, Key=file_name)
+       
+        # Store the file name in DynamoDB and log the response
+        
+        table.put_item(Item={'FileName': file_name})
+        
+
+
+    except Exception as e:
+        logging.error(f"An error occurred: {e}")
+        raise e
+
 ```
 ### 4.Screenshots
  ![source-bucket-s3](Screenshots/task-source-bucket-s3.png)
