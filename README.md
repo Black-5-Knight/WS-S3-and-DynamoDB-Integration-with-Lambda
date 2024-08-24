@@ -56,5 +56,5 @@ def lambda_handler(event, context):
         'statusCode': 200,
         'body': f"File '{file_key}' successfully moved to '{destination_bucket}' and recorded in DynamoDB."
     }
-![Screenshot from 2024-08-24 22-45-56](https://github.com/user-attachments/assets/5c8f41e0-c1de-4d32-b36d-be53807e0c5f)
-![Screenshot from 2024-08-24 22-46-19](https://github.com/user-attachments/assets/358b226e-2ded-4283-8531-c045fba11963)
+![Screenshot from 2024-08-24 22-45-56](Screenshots/task-source-bucket-s3.png)
+![Screenshot from 2024-08-24 22-46-19](Screenshots/task-destination-bucket-s3.png)
