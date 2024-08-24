@@ -21,12 +21,12 @@ This project demonstrates how to use AWS services (S3, DynamoDB, and Lambda) to 
 
 ### 2. Create a DynamoDB Table
 
-- **Table Name**: `YourDynamoDBTableName`
-- **Primary Key**: `fileName` (String)
+- **Table Name**: `FileRecords`
+- **Primary Key**: `FileName` (String)
 
 ### 3. Create a Lambda Function
 
-- **Runtime**: Python 3.x or Node.js (choose based on your preference)
+- **Runtime**: Python 3.x 
 - **Role**: Attach a role with necessary permissions for S3 and DynamoDB access.
 - **Function Code**: Use the following template and modify it according to your requirements:
 
