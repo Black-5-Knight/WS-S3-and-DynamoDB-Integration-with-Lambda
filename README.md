@@ -60,5 +60,5 @@ def lambda_handler(event, context):
 ### 4.Screenshots
  ![source-bucket-s3](Screenshots/task-source-bucket-s3.png)
  ![destination-bucket-s3](Screenshots/task-destination-bucket-s3.png)
- ![dynmo db](Screenshots/dynmo db.png)
+ ![dynmo db](Screenshots/dynmo-db.png)
 
